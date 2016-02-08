@@ -1,0 +1,110 @@
+var assert = require('assert');
+var fs = require('fs');
+var caml = require('../../lib/caml');
+
+var a = fs.readFileSync('test/fixtures/a.yml', 'utf-8');
+var b = fs.readFileSync('test/fixtures/b.yml', 'utf-8');
+var c = fs.readFileSync('test/fixtures/c.yml', 'utf-8');
+var deep = fs.readFileSync('test/fixtures/deep.yml', 'utf-8');
+var empty = fs.readFileSync('test/fixtures/empty.yml', 'utf-8');
+var merge = fs.readFileSync('test/fixtures/merge.yml', 'utf-8');
+
+describe('Caml', function () {
+  describe('#replaceAliases()', function () {
+    it('should return an array of prepocessed yaml lines', function () {
+      var yamlLines = caml.replaceAliases(a);
+      assert.equal(17, yamlLines.length);
+    });
+
+    it('should return an empty array for empty files', function () {
+      var yamlLines = caml.replaceAliases(empty);
+      assert.equal(0, yamlLines.length);
+    });
+
+    it('should replace aliases by the block content of an anchor', function () {
+      var yamlLines = caml.replaceAliases(a);
+      assert.equal(17, yamlLines.length);
+    });
+
+    it('should be able to handle concatenated files (as string)', function () {
+      var yamlLines = caml.replaceAliases(a + b);
+      assert.equal(40, yamlLines.length);
+    });
+  });
+
+  describe('#parse()', function () {
+    it('should be able to cascade and parse multiple yaml files', function () {
+      var yamlLines = caml.replaceAliases(a + b);
+      var fullYamlLines = caml.blowUpHierarchy(yamlLines);
+      var json = caml.parse(fullYamlLines);
+
+      assert.equal(json.a.z.zz, "fromB");
+      assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
+      assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
+      assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
+      assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
+    });
+
+    it('should have no aliases in the output', function () {
+      var yamlLines = caml.replaceAliases(a + b + c);
+
+      yamlLines.forEach(function (line) {
+        assert(line.indexOf("<<: *") === -1);
+      });
+    });
+
+    it('should be able to cascade and parse multiple yaml files', function () {
+      var yamlLines = caml.replaceAliases(a + b + c);
+
+      var fullYamlLines = caml.blowUpHierarchy(yamlLines);
+      var json = caml.parse(fullYamlLines);
+
+      assert.equal(json.a.z.zz, "fromB");
+      assert.equal(json.a.b.z.zz, "shouldBeFromC");
+      assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
+      assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
+      assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
+      assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
+      assert(json.deep.merge.iHope); // Overwrite array fully by property
+      assert(json.deep.merge.iHope); // Overwrite array fully by property
+    });
+  });
+
+  describe('#camlize()', function () {
+    it('should be able to cascade and parse multiple yaml files', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "a",
+          "b"
+        ]
+      });
+
+      assert.equal(json.a.z.zz, "fromB");
+      assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
+      assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
+      assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
+      assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
+    });
+
+    it('should be able to cascade and parse multiple yaml files', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "a",
+          "b",
+          "c"
+        ]
+      });
+
+      assert.equal(json.a.z.zz, "fromB");
+      assert.equal(json.a.b.z.zz, "shouldBeFromC");
+      assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
+      assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
+      assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
+      assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
+      assert(json.deep.merge.iHope); // Overwrite array fully by property
+      assert(json.deep.merge.iHope); // Overwrite array fully by property
+    });
+  });
+});

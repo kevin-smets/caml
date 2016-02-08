@@ -1,0 +1,24 @@
+derb: &deep
+  merge:
+    should: "be"
+    possible: &possible
+        yes: true
+    iHope: "so"
+  merge:
+    should: "uhu"
+otherLevel:
+  deep:
+    merge:
+      should: "be"
+      possible:
+        yes: true
+      iHope: "so"
+    merge:
+      should: "be"
+      be: "rightfully"
+      possible: true
+      possible:
+        should:
+        - 1
+        - 2
+        - 3

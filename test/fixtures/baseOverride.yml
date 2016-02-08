@@ -1,0 +1,6 @@
+uild:
+  streams:
+    sass:
+      <<: *sass
+      autoprefix:
+        active: false

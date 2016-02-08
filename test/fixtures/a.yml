@@ -1,0 +1,17 @@
+a:
+  b:
+    c: &c_from_a
+      d: "shouldBeFromA"
+      ccc:
+        cccc: "shouldBeFromA"
+        ccccc: "shouldBeFromA"
+    d: "cannotBeFromA"
+    e: [ 'cannotBeLength3', 'cannotBeFromA', 'cannotBeFromA' ]
+    e: [ 'cannotBeLength3', 'shouldBe2ndArray', 'cannotBeFromA' ]
+    f: [ 'shouldBeLength3', 'shouldBeFromA', 'shouldBeFromA' ]
+    f: [ 'shouldBeLength3', 'shouldBe2ndArray', 'shouldBeFromA' ]
+  z:
+    zz: "cannotBeFromA"
+g:
+  h: 'and now for something completely different, but shouldBeFromA still'
+  i: true

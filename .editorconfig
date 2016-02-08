@@ -1,0 +1,18 @@
+# EditorConfig is awesome: http://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# use UTF-8, insert final newline and use spaces instead of tab
+[*]
+charset = utf-8
+insert_final_newline = true
+indent_style = space
+spaces_around_brackets = inside
+
+[{*.js,*.json,*.yml}]
+indent_size = 2
+
+# don't trim trailing whitespace for markdown (is used to force line break)
+[*.md]
+trim_trailing_whitespace = false

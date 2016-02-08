@@ -1,0 +1,24 @@
+derb: &deep
+  merge:
+    should: "be"
+    possible:
+      yes: true
+    iHope: "so"
+otherLevel:
+  deep:
+    <<: *deep
+    merge:
+      should: "be"
+      be: "rightfully"
+      possible: true
+      possible:
+        should: "indeed"
+      possible: true
+      amount: 1
+      array: [
+        1,
+        2,
+        3
+      ]
+
+derb.should.be: true

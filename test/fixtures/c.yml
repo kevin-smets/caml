@@ -1,0 +1,21 @@
+a:
+  b:
+    c:
+      z:
+        <<: *c_from_a
+        zz: "shouldBeFromC"
+        cccB:
+          <<: *ccc_from_b
+    z:
+      <<: *z_from_b
+      zz: "shouldBeFromC"
+g:
+  i: false
+
+deep:
+  <<: *deep_from_b
+  merge:
+    should: "indeed"
+    be: "rightfully"
+    possible: true
+    iHope: true
