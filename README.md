@@ -83,7 +83,6 @@ Will result in the following:
 ## Gotcha's
 
 - Arrays are considered to be simple values, they are never merged, they will always simply be overwritten.
-- Nested anchoring is not yet possible
 - Because `.` splits out into a path for a property, none of your keys can contain a `.` in the name.
 
 ## CLI

@@ -1,0 +1,12 @@
+nest: &nest
+  utils:
+    server:
+      active: false
+    nested: &nested
+      active: true
+      offline: false
+
+test:
+  <<: *nest
+  testNest:
+    <<: *nested
