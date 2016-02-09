@@ -4,7 +4,9 @@
   "description": "Cascading YAML configuration",
   "bin": "bin/caml",
   "main": "lib/caml.js",
-  "test": "istanbul cover _mocha test/**/*Spec.js",
+  "scripts": {
+    "test": "istanbul cover _mocha test/**/*Spec.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kevin-smets/caml.git"

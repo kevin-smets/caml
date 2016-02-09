@@ -1,0 +1,15 @@
+a:
+  b: [ 'single', 'line', 'ray' ]
+  c: [
+    'multiple',
+    'line',
+    'ray'
+  ]
+  d:
+    - 'even'
+    - 'a'
+    - 'list'
+  e:
+    - and: 'yes'
+      yes: 'even'
+      a: 'dictionary'

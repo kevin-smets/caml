@@ -1,0 +1,26 @@
+{
+  "a": {
+    "b": [
+      "single",
+      "line",
+      "ray"
+    ],
+    "c": [
+      "multiple",
+      "line",
+      "ray"
+    ],
+    "d": [
+      "even",
+      "a",
+      "list"
+    ],
+    "e": [
+      {
+        "and": "yes",
+        "true": "even",
+        "a": "dictionary"
+      }
+    ]
+  }
+}

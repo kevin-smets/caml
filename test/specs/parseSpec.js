@@ -7,6 +7,8 @@ var b = fs.readFileSync('test/fixtures/b.yml', 'utf-8');
 var c = fs.readFileSync('test/fixtures/c.yml', 'utf-8');
 var deep = fs.readFileSync('test/fixtures/deep.yml', 'utf-8');
 var empty = fs.readFileSync('test/fixtures/empty.yml', 'utf-8');
+var lists = fs.readFileSync('test/fixtures/lists.yml', 'utf-8');
+var listsJson = fs.readFileSync('test/fixtures/lists.json', 'utf-8');
 var merge = fs.readFileSync('test/fixtures/merge.yml', 'utf-8');
 
 describe('Caml', function () {
@@ -117,6 +119,17 @@ describe('Caml', function () {
 
       assert.equal(json.test.utils.nested.offline, false);
       assert.equal(json.test.testNest.offline, false);
+    });
+
+    it('should handle arrays like a champ', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "lists"
+        ]
+      });
+
+      assert.equal(JSON.stringify(json, null, 2) + "\n", listsJson);
     });
   });
 });
