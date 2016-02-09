@@ -1,4 +1,4 @@
-# CAML [![Build Status](https://travis-ci.org/kevin-smets/caml.svg?branch=master)](https://travis-ci.org/kevin-smets/caml) [![Dependency Status](https://david-dm.org/kevin-smets/caml.svg)](https://david-dm.org/kevin-smets/caml)
+I# CAML [![Build Status](https://travis-ci.org/kevin-smets/caml.svg?branch=master)](https://travis-ci.org/kevin-smets/caml) [![Dependency Status](https://david-dm.org/kevin-smets/caml.svg)](https://david-dm.org/kevin-smets/caml)
 
 Cascading YAML config, a YAML preprocessor.
 
@@ -24,6 +24,10 @@ This behaviour is not optional (at least not yet), meaning the output of CAML wi
 
 In CAML, it's possible to define properties like `a.b.c: 1'. These will all be merged into a single Object literal.
 
+### Array handling
+
+Arrays are considered to be simple values, they are never merged. They will always simply be overwritten if another value or another array has been declared.
+
 ## Usage
 
 The following will cascade `a.yml`, `b.yml` and `c.yml` from the directory `test/fixtures`.
@@ -32,14 +36,21 @@ The following will cascade `a.yml`, `b.yml` and `c.yml` from the directory `test
 var caml = require('caml');
 
 var options = {
-    dir: 'test/fixtures',
+    dir: 'test/fixtures', 
     files: ['a', 'b', 'c']
+    separator: "_"
 }
 
 caml.camlize(options);
 ```
 
-The return will an Object literal.
+The return will be an Object literal.
+
+The following parameters can be set:
+
+- options.**dir**: the directory where CAML will look for files, default is the current working dir.
+- options.**files**: the files to merge, order matters. Properties declared in `c.yml` will overrule those from `b.yml` and `a.yml`  
+- options.**separator**: by default, full paths to properties will be separated by `.`. If your variable names include a dot in the name, make sure to define another separator.
 
 ### Example
 
@@ -81,11 +92,6 @@ Will result in the following:
   } 
 }
 ```
-
-## Gotcha's
-
-- Arrays are considered to be simple values, they are never merged, they will always simply be overwritten.
-- Because `.` splits out into a path for a property, none of your keys can contain a `.` in the name (working on it)
 
 ## CLI
 

@@ -131,5 +131,17 @@ describe('Caml', function () {
 
       assert.equal(JSON.stringify(json, null, 2) + "\n", listsJson);
     });
+
+    it('should handle another seperator', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "separator"
+        ],
+        separator: '_'
+      });
+
+      assert.equal(json.this['is.a.test'], "for.the.separator");
+    });
   });
 });
