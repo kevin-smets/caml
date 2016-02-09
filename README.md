@@ -1,4 +1,4 @@
-# CAML
+# CAML [![Build Status](https://travis-ci.org/kevin-smets/caml.svg?branch=master)](https://travis-ci.org/kevin-smets/caml)
 
 CAML means Cascading YAML config.
 
