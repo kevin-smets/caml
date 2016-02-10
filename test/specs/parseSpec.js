@@ -103,10 +103,14 @@ describe('Caml', function () {
       assert.equal(json.a.b.z.zz, "shouldBeFromC");
       assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
       assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
+
       assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
       assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
+
       assert(json.deep.merge.iHope); // Overwrite array fully by property
       assert(json.deep.merge.iHope); // Overwrite array fully by property
+
+      assert.equal(json.other.ccc.ccccc, "shouldBeFromA"); // Test "key: *alias"
     });
 
     it('should handle nested anchors', function () {
@@ -121,7 +125,7 @@ describe('Caml', function () {
       assert.equal(json.test.testNest.offline, false);
     });
 
-    it('should handle arrays like a champ', function () {
+    it('should handle lists like a champ', function () {
       var json = caml.camlize({
         dir: "test/fixtures",
         files: [
@@ -130,6 +134,7 @@ describe('Caml', function () {
       });
 
       assert.equal(JSON.stringify(json, null, 2) + "\n", listsJson);
+      assert.equal(json.z.y, "prop");
     });
 
     it('should handle another seperator', function () {

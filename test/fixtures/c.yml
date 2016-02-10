@@ -19,3 +19,5 @@ deep:
     be: "rightfully"
     possible: true
     iHope: true
+
+other: *c_from_a

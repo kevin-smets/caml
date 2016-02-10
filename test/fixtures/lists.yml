@@ -1,4 +1,4 @@
-a:
+a: &a
   b: [ 'single', 'line', 'ray' ]
   c: [
     'multiple',
@@ -13,3 +13,6 @@ a:
     - and: 'yes'
       yes: 'even'
       a: 'dictionary'
+z:
+  y: "prop"
+  x: *a
