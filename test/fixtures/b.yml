@@ -6,12 +6,13 @@ a:
       ccc: &ccc_from_b
         a: "shouldBeFromB"
         cccc: "shouldBeFromB"
-      d: "shouldBeFromB"
-    d: "shoulBefromB"
+    d: "shouldBeFromB"
+    d: "shouldBeOverwrittenInB"
     e: [ 'shouldBeLength2', 'shouldBefromB' ]
-  z: &z_from_b
+  z:
     zz: "fromB"
-
+      zzz:
+        <<: *c_from_a
 otherLevel:
   deep: &deep_from_b
     amount: 1
@@ -19,3 +20,6 @@ otherLevel:
       should: "be"
       possible: "yes?"
       iHope: [1, 3, 5]
+anchor: &anchor
+  fake: true
+alias: *anchor

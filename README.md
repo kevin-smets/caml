@@ -30,6 +30,10 @@ In CAML, it's possible to define properties like `a.b.c: 1'. These will all be m
 
 Arrays are considered to be simple values, they are never merged. They will always simply be overwritten if another value or another array has been declared.
 
+### Gotcha's
+
+- Nested anchors / aliases are not yet possible.
+
 ## Usage
 
 The following will cascade `a.yml`, `b.yml` and `c.yml` from the directory `test/fixtures`.

@@ -7,7 +7,6 @@ a:
         cccB:
           <<: *ccc_from_b
     z:
-      <<: *z_from_b
       zz: "shouldBeFromC"
 g:
   i: false

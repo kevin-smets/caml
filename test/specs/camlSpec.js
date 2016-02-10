@@ -18,11 +18,6 @@ describe('Caml', function () {
       assert.equal(17, yamlLines.length);
     });
 
-    it('should return an empty array for empty files', function () {
-      var yamlLines = caml.replaceAliases(empty);
-      assert.equal(0, yamlLines.length);
-    });
-
     it('should replace aliases by the block content of an anchor', function () {
       var yamlLines = caml.replaceAliases(a);
       assert.equal(17, yamlLines.length);
@@ -30,7 +25,7 @@ describe('Caml', function () {
 
     it('should be able to handle concatenated files (as string)', function () {
       var yamlLines = caml.replaceAliases(a + b);
-      assert.equal(40, yamlLines.length);
+      assert.equal(49, yamlLines.length);
     });
   });
 
@@ -40,9 +35,10 @@ describe('Caml', function () {
       var fullYamlLines = caml.blowUpHierarchy(yamlLines);
       var json = caml.parse(fullYamlLines);
 
-      assert.equal(json.a.z.zz, "fromB");
+      assert.equal(json.a.z.zz.zzz.d, "shouldBeFromA");
       assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
       assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
+      assert.equal(json.a.b.d, "shouldBeOverwrittenInB");
       assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
       assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
     });
@@ -61,12 +57,14 @@ describe('Caml', function () {
       var fullYamlLines = caml.blowUpHierarchy(yamlLines);
       var json = caml.parse(fullYamlLines);
 
-      assert.equal(json.a.z.zz, "fromB");
       assert.equal(json.a.b.z.zz, "shouldBeFromC");
       assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
       assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
       assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
       assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
+
+      assert.equal(json.a.z.zz.zzz.d, "shouldBeFromA");
+
       assert(json.deep.merge.iHope); // Overwrite array fully by property
       assert(json.deep.merge.iHope); // Overwrite array fully by property
     });
@@ -82,11 +80,12 @@ describe('Caml', function () {
         ]
       });
 
-      assert.equal(json.a.z.zz, "fromB");
       assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
       assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
       assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
       assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
+
+      assert.equal(json.a.z.zz.zzz.d, "shouldBeFromA");
     });
 
     it('should be able to cascade and parse multiple yaml files', function () {
@@ -99,7 +98,6 @@ describe('Caml', function () {
         ]
       });
 
-      assert.equal(json.a.z.zz, "fromB");
       assert.equal(json.a.b.z.zz, "shouldBeFromC");
       assert.equal(json.a.b.c.ccc.cccc, "shouldBeFromB");
       assert.equal(json.a.b.c.ccc.ccccc, "shouldBeFromA");
@@ -107,10 +105,10 @@ describe('Caml', function () {
       assert.equal(json.a.b.e.length, 2); // Overwrite arrays fully
       assert.equal(json.a.b.f.length, 3); // Overwrite arrays fully
 
-      assert(json.deep.merge.iHope); // Overwrite array fully by property
-      assert(json.deep.merge.iHope); // Overwrite array fully by property
+      assert.equal(json.a.z.zz.zzz.d, "shouldBeFromA");
 
-      assert.equal(json.other.ccc.ccccc, "shouldBeFromA"); // Test "key: *alias"
+      assert(json.deep.merge.iHope); // Overwrite array fully by property
+      assert(json.deep.merge.iHope); // Overwrite array fully by property
     });
 
     it('should handle nested anchors', function () {
