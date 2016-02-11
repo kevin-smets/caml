@@ -32,7 +32,7 @@ Arrays are considered to be simple values, they are never merged. They will alwa
 
 ### Gotcha's
 
-- Nested anchors / aliases are not yet possible.
+- Nested aliases inside anchors are not yet possible.
 
 ## Usage
 
