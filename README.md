@@ -58,6 +58,14 @@ The following parameters can be set:
 - options.**files**: the files to merge, order matters. Properties declared in `c.yml` will overrule those from `b.yml` and `a.yml`  
 - options.**separator**: by default, full paths to properties will be separated by `.`. If your variable names include a dot in the name, make sure to define another separator.
 
+If you define another separator, `a.b.c: "prop"` notation will no longer be valid. The dots will have to be replaced by the given separator. E.g. if the separator is `_` you'll have to define a full path like `a_b_c: "prop"` or
+
+```
+a:
+  b:
+    c: "prop"
+```
+
 ### Example
 
 a.yml
