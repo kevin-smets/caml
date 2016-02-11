@@ -1,0 +1,6 @@
+/.idea
+/coverage
+/node_modules
+/test
+/.editorconfig
+/.travis.yml
