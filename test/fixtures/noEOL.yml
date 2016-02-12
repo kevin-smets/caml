@@ -1,0 +1,5 @@
+no:
+  end:
+    of:
+      file: 'inserted'
+# don't insert a EOL!
