@@ -16,3 +16,6 @@ indent_size = 2
 # don't trim trailing whitespace for markdown (is used to force line break)
 [*.md]
 trim_trailing_whitespace = false
+
+[test/fixtures/noEOL.yml]
+insert_final_newline = false

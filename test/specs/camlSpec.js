@@ -10,6 +10,8 @@ var empty = fs.readFileSync('test/fixtures/empty.yml', 'utf-8');
 var lists = fs.readFileSync('test/fixtures/lists.yml', 'utf-8');
 var listsJson = fs.readFileSync('test/fixtures/lists.json', 'utf-8');
 var merge = fs.readFileSync('test/fixtures/merge.yml', 'utf-8');
+var noEOL = fs.readFileSync('test/fixtures/noEOL.yml', 'utf-8');
+
 
 describe('Caml', function () {
   describe('#replaceAliases()', function () {
@@ -145,6 +147,15 @@ describe('Caml', function () {
       });
 
       assert.equal(json.this['is.a.test'], "for.the.separator");
+    });
+    it('shouldnt break on files without a EOL char at the end', function () {
+      caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "noEOL", "lists"
+        ]
+      });
+
     });
   });
 });
