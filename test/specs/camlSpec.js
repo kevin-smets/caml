@@ -12,7 +12,6 @@ var listsJson = fs.readFileSync('test/fixtures/lists.json', 'utf-8');
 var merge = fs.readFileSync('test/fixtures/merge.yml', 'utf-8');
 var noEOL = fs.readFileSync('test/fixtures/noEOL.yml', 'utf-8');
 
-
 describe('Caml', function () {
   describe('#replaceAliases()', function () {
     it('should return an array of prepocessed yaml lines', function () {
@@ -123,6 +122,18 @@ describe('Caml', function () {
 
       assert.equal(json.test.utils.nested.offline, false);
       assert.equal(json.test.testNest.offline, false);
+    });
+
+    it('should handle aliases nested inside anchors', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "nested"
+        ]
+      });
+
+      assert.equal(json.nest.utils.nested.nestedAlias.iAm, "nested");
+      assert.equal(json.nest.utils.nested.nestedAlias.amI, "there");
     });
 
     it('should handle lists like a champ', function () {

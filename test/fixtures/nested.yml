@@ -1,3 +1,7 @@
+nestedAnchor: &nestedAnchor
+  iAm: "nested"
+  amI: "here"
+
 nest: &nest
   utils:
     server:
@@ -5,6 +9,9 @@ nest: &nest
     nested: &nested
       active: true
       offline: false
+      nestedAlias:
+        <<: *nestedAnchor
+        amI: "there"
 
 test:
   <<: *nest
