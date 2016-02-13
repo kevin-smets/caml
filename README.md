@@ -112,3 +112,7 @@ There's a CLI, but it's mainly there for running a quick test.
 ```
 npm test
 ```
+
+## TODO
+
+- handle circular anchor / alias references
