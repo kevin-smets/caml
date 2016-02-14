@@ -5,6 +5,7 @@ var camlUtil = require('../../lib/camlUtil');
 var a = fs.readFileSync('test/fixtures/a.yml', 'utf-8');
 var b = fs.readFileSync('test/fixtures/b.yml', 'utf-8');
 var c = fs.readFileSync('test/fixtures/c.yml', 'utf-8');
+var circular = fs.readFileSync('test/fixtures/circular.yml', 'utf-8');
 var comments = fs.readFileSync('test/fixtures/comments.yml', 'utf-8');
 var empty = fs.readFileSync('test/fixtures/empty.yml', 'utf-8');
 
@@ -71,9 +72,17 @@ describe('camlUtil', function () {
     });
 
     it('should have no aliases in the output', function () {
-      resultLines.forEach(function (line, index) {
+      resultLines.forEach(function (line) {
         assert(line.indexOf("<<: *") === -1);
       });
     });
+
+    it('should throw an Error for circular references', function () {
+      assert.throws(function() {
+        camlUtil.retrieveAnchors(circular);
+      }, Error, "Error thrown for circular reference errors");
+    });
+
+
   });
 });

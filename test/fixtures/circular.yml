@@ -1,0 +1,4 @@
+circural: &reference
+  loop: true
+  wrong:
+    <<: *reference
