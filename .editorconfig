@@ -6,7 +6,6 @@ root = true
 # use UTF-8, insert final newline and use spaces instead of tab
 [*]
 charset = utf-8
-insert_final_newline = true
 indent_style = space
 spaces_around_brackets = inside
 
