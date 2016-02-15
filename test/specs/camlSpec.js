@@ -72,6 +72,18 @@ describe('Caml', function () {
   });
 
   describe('#camlize()', function () {
+    it('should not crash on non-existing files', function () {
+      caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "iDoNotExist",
+          'a'
+        ]
+      });
+
+      assert(true);
+    });
+
     it('should be able to cascade and parse multiple yaml files', function () {
       var json = caml.camlize({
         dir: "test/fixtures",
