@@ -1,0 +1,8 @@
+anchor: &anchor
+
+alias: *anchor
+otherAlias:
+  <<: *anchor
+  indentenAnchors:
+    <<: *anchor
+    anotherAlias: *anchor

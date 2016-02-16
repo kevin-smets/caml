@@ -1,0 +1,12 @@
+# Caml should handle duplicate anchors (override)
+base: &base
+  from: "base"
+some:
+  baseOverride: &base
+    from: "baseOverride"
+    success:
+      fail: false
+  otherBlock: "yeah"
+extend:
+  <<: *base
+  iAm: "original"

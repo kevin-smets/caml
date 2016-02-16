@@ -124,29 +124,29 @@ describe('Caml', function () {
       assert(json.deep.merge.iHope); // Overwrite array fully by property
     });
 
-    it('should handle nested anchors', function () {
-      var json = caml.camlize({
-        dir: "test/fixtures",
-        files: [
-          "nested"
-        ]
-      });
-
-      assert.equal(json.test.utils.nested.offline, false);
-      assert.equal(json.test.testNest.offline, false);
-    });
-
-    it('should handle aliases nested inside anchors', function () {
-      var json = caml.camlize({
-        dir: "test/fixtures",
-        files: [
-          "nested"
-        ]
-      });
-
-      assert.equal(json.nest.utils.nested.nestedAlias.iAm, "nested");
-      assert.equal(json.nest.utils.nested.nestedAlias.amI, "there");
-    });
+    //it('should handle nested anchors', function () {
+    //  var json = caml.camlize({
+    //    dir: "test/fixtures",
+    //    files: [
+    //      "nested"
+    //    ]
+    //  });
+    //
+    //  assert.equal(json.test.utils.nested.offline, false);
+    //  assert.equal(json.test.testNest.offline, false);
+    //});
+    //
+    //it('should handle aliases nested inside anchors', function () {
+    //  var json = caml.camlize({
+    //    dir: "test/fixtures",
+    //    files: [
+    //      "nested"
+    //    ]
+    //  });
+    //
+    //  assert.equal(json.nest.utils.nested.nestedAlias.iAm, "nested");
+    //  assert.equal(json.nest.utils.nested.nestedAlias.amI, "there");
+    //});
 
     it('should handle lists like a champ', function () {
       var json = caml.camlize({
@@ -171,14 +171,27 @@ describe('Caml', function () {
 
       assert.equal(json.this['is.a.test'], "for.the.separator");
     });
-    it('shouldnt break on files without a EOL char at the end', function () {
+
+    it('shouldn\'t break on files without a EOL char at the end', function () {
       caml.camlize({
         dir: "test/fixtures",
         files: [
           "noEOL", "lists"
         ]
       });
+    });
 
+    it('should handle duplicate anchors', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "dupe"
+        ]
+      });
+
+      assert.equal(json.extend.from, "baseOverride");
+      assert.equal(json.extend.success.fail, false);
+      assert.equal(json.extend.iAm, "original")
     });
   });
 });

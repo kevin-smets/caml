@@ -9,6 +9,10 @@ var circular = fs.readFileSync('test/fixtures/circular.yml', 'utf-8');
 var comments = fs.readFileSync('test/fixtures/comments.yml', 'utf-8');
 var empty = fs.readFileSync('test/fixtures/empty.yml', 'utf-8');
 
+function read(fileName) {
+  return fs.readFileSync('test/fixtures/' + fileName + '.yml', 'utf-8');
+}
+
 describe('camlUtil', function () {
   describe('#stripEmptyLinesAndComments()', function () {
     it('should return "" for empty lines', function () {
@@ -39,12 +43,35 @@ describe('camlUtil', function () {
         assert.equal(anchors[anchor].block[3], '        ccccc: "shouldBeFromA"');
       });
     });
+
+    it('should handle duplicate anchor declarations', function () {
+      var anchors = camlUtil.retrieveAnchors(dupe);
+      assert.equal(Object.keys(anchors).length, 1);
+
+      assert.equal(anchors.base.block.length, 4);
+      assert.equal(anchors.base.block[0], '  from: "base"');
+      assert.equal(anchors.base.block[1], '  from: "baseOverride"');
+      assert.equal(anchors.base.block[2], '  success:');
+      assert.equal(anchors.base.block[3], '    fail: false');
+    });
+  });
+
+  describe('#stripAnchors()', function () {
+    it('should properly strip anchors', function () {
+      var dupeClean = camlUtil.stripAnchors(read(dupe));
+
+      assert.equal(dupeClean.match(/: &/), null);
+    });
   });
 
   describe('#replaceAliases()', function () {
-    var anchors = camlUtil.retrieveAnchors(a + b + c);
-    var result = camlUtil.replaceAliases(a + b + c, anchors);
-    var resultLines = result.split('\n');
+    var anchors, result, resultLines;
+
+    beforeEach(function () {
+      anchors = camlUtil.retrieveAnchors(a + b + c);
+      result = camlUtil.replaceAliases(a + b + c, anchors);
+      resultLines = result.split('\n');
+    });
 
     it('should set the block with correct indentation (less indentation)', function () {
       assert.equal(resultLines[19], '    c:');
@@ -78,11 +105,9 @@ describe('camlUtil', function () {
     });
 
     it('should throw an Error for circular references', function () {
-      assert.throws(function() {
+      assert.throws(function () {
         camlUtil.retrieveAnchors(circular);
       }, Error, "Error thrown for circular reference errors");
     });
-
-
   });
 });
