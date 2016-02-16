@@ -1,0 +1,6 @@
+baseExtend:
+  <<: *base
+
+baseOverride: &base
+  baseProp: false
+  baseProp: false

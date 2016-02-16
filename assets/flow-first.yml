@@ -1,0 +1,7 @@
+base: &base
+  baseProp: true
+  baseObj:
+    arr: [
+    'one',
+    'two'
+    ]
