@@ -45,7 +45,7 @@ describe('camlUtil', function () {
     });
 
     it('should handle duplicate anchor declarations', function () {
-      var anchors = camlUtil.retrieveAnchors(dupe);
+      var anchors = camlUtil.retrieveAnchors(read('dupe'));
       assert.equal(Object.keys(anchors).length, 1);
 
       assert.equal(anchors.base.block.length, 4);
@@ -58,7 +58,7 @@ describe('camlUtil', function () {
 
   describe('#stripAnchors()', function () {
     it('should properly strip anchors', function () {
-      var dupeClean = camlUtil.stripAnchors(read(dupe));
+      var dupeClean = camlUtil.stripAnchors(read('dupe'));
 
       assert.equal(dupeClean.match(/: &/), null);
     });
