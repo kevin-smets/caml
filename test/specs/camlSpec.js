@@ -143,29 +143,29 @@ describe('Caml', function () {
       assert(json.deep.merge.iHope); // Overwrite array fully by property
     });
 
-    //it('should handle nested anchors', function () {
-    //  var json = caml.camlize({
-    //    dir: "test/fixtures",
-    //    files: [
-    //      "nested"
-    //    ]
-    //  });
-    //
-    //  assert.equal(json.test.utils.nested.offline, false);
-    //  assert.equal(json.test.testNest.offline, false);
-    //});
-    //
-    //it('should handle aliases nested inside anchors', function () {
-    //  var json = caml.camlize({
-    //    dir: "test/fixtures",
-    //    files: [
-    //      "nested"
-    //    ]
-    //  });
-    //
-    //  assert.equal(json.nest.utils.nested.nestedAlias.iAm, "nested");
-    //  assert.equal(json.nest.utils.nested.nestedAlias.amI, "there");
-    //});
+    it('should handle nested anchors', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "nested"
+        ]
+      });
+
+      assert.equal(json.test.utils.nested.offline, false);
+      assert.equal(json.test.testNest.offline, false);
+    });
+
+    it('should handle aliases nested inside anchors', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "nested"
+        ]
+      });
+
+      assert.equal(json.nest.utils.nested.nestedAlias.iAm, "nested");
+      assert.equal(json.nest.utils.nested.nestedAlias.amI, "there");
+    });
 
     it('should handle lists like a champ', function () {
       var json = caml.camlize({

@@ -103,12 +103,5 @@ describe('camlUtil', function () {
         assert(line.indexOf("<<: *") === -1);
       });
     });
-
-    // Not needed anymore since we offer anchor overrides?
-    //it('should throw an Error for circular references', function () {
-    //  assert.throws(function () {
-    //    camlUtil.retrieveAnchors(circular);
-    //  }, Error, "Error thrown for circular reference errors");
-    //});
   });
 });
