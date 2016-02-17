@@ -2,7 +2,7 @@
 
 ## File sources
 
-`general1st.yml`
+`general/1st.yml`
 
 ```
 baseUnoverridable: &base
@@ -16,7 +16,7 @@ another."base.overridable": &base
   <<: *base
 ```
 
-`general2nd.yml`
+`general/2nd.yml`
 
 ```
 baseExtend:
