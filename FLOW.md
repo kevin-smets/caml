@@ -5,13 +5,15 @@
 `flow-first.yml`
 
 ```
-base: &base
+baseUnoverridable: &base
   baseProp: true
   baseObj:
     arr: [
     'one',
     'two'
     ]
+baseOverridable: &base
+  <<: *base
 ```
 
 `flow-second.yml`
@@ -30,13 +32,15 @@ baseOverride: &base
 The block content of the anchors has been stored.
 
 ```
-base: 
+baseUnoverridable: 
   baseProp: true
   baseObj:
     arr: [
     'one',
     'two'
     ]
+baseOverridable: 
+  <<: *base
 baseExtend:
   <<: *base
 baseOverride: 
@@ -47,13 +51,22 @@ baseOverride:
 ## Replace aliases by the anchor block
 
 ```
-base: 
+baseUnoverridable: 
   baseProp: true
   baseObj:
     arr: [
     'one',
     'two'
     ]
+baseOverridable: 
+  baseProp: true
+  baseObj:
+    arr: [
+    'one',
+    'two'
+    ]
+  baseProp: false
+  baseProp: false
 baseExtend:
   baseProp: true
   baseObj:
@@ -71,13 +84,22 @@ baseOverride:
 ## Blow up the hierarchy
 
 ```
-base: 
-base.baseProp: true
-base.baseObj:
-base.baseObj.arr: [
+baseUnoverridable: 
+baseUnoverridable.baseProp: true
+baseUnoverridable.baseObj:
+baseUnoverridable.baseObj.arr: [
     'one',
     'two'
     ]
+baseOverridable: 
+baseOverridable.baseProp: true
+baseOverridable.baseObj:
+baseOverridable.baseObj.arr: [
+    'one',
+    'two'
+    ]
+baseOverridable.baseProp: false
+baseOverridable.baseProp: false
 baseExtend:
 baseExtend.baseProp: true
 baseExtend.baseObj:
@@ -96,8 +118,17 @@ baseOverride.baseProp: false
 
 ```
 {
-  "base": {
+  "baseUnoverridable": {
     "baseProp": true,
+    "baseObj": {
+      "arr": [
+        "one",
+        "two"
+      ]
+    }
+  },
+  "baseOverridable": {
+    "baseProp": false,
     "baseObj": {
       "arr": [
         "one",
