@@ -1,8 +1,8 @@
-# Flow of CamlYaml
+# General flow of CamlYaml
 
 ## File sources
 
-`flow-first.yml`
+`general1st.yml`
 
 ```
 baseUnoverridable: &base
@@ -16,7 +16,7 @@ another."base.overridable": &base
   <<: *base
 ```
 
-`flow-second.yml`
+`general2nd.yml`
 
 ```
 baseExtend:
@@ -45,6 +45,7 @@ baseExtend:
 baseOverride: &base
   baseProp: false
   baseProp: false
+
 ```
 
 ## Strip white lines, comments and anchors

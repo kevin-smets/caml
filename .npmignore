@@ -1,8 +1,8 @@
 /.idea
 /assets
 /coverage
+/examples
 /node_modules
 /test
 /.editorconfig
 /.travis.yml
-/FLOW.md

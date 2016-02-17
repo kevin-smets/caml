@@ -77,50 +77,9 @@ The following parameters can be set:
 - options.**dir**: the directory where CAML will look for files, default is the current working dir.
 - options.**files**: the files to merge, order matters. Properties declared in `c.yml` will overrule those from `b.yml` and `a.yml`
 
-### Example 
+### Examples 
 
-A more elaborate example can be found in FLOW.md.
-
-a.yml
-
-```
-a:
-  b: &b
-    c: "fromA"
-    d: [ "fromA" ]
-    e: "fromA"
-```
-
-b.yml
-
-```
-b:
-  <<: *b
-  c: "fromB"
-  d: "fromB"
-a.b.d: "fromB"
-a."b.d": "alsoFromB"
-```
-
-Will result in the following:
-
-```
-{ 
-  "a": { 
-    "b": { 
-      "c": "fromA",
-      "d": "fromB"
-      "e": "fromA"
-    }
-    "b.d": "alsoFromB"
-  },
-  "b": { 
-    "c': "fromB",
-    'd': "fromB" 
-    'e': "fromA"
-  } 
-}
-```
+More elaborate examples can be found in `/examples`.
 
 ## CLI
 
@@ -131,7 +90,3 @@ There's a CLI, but it's mainly there for running a quick test.
 ```
 npm test
 ```
-
-## TODO
-
-- handle circular anchor / alias references

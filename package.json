@@ -5,7 +5,7 @@
   "bin": "bin/caml",
   "main": "lib/caml.js",
   "scripts": {
-    "flow": "assets/flow-gen.js",
+    "examples": "assets/generate.js",
     "test": "istanbul cover _mocha test/**/*Spec.js"
   },
   "repository": {
