@@ -1,2 +1,2 @@
 this:
-  is.a.test: "for.the.separator"
+  "is.a.test": "for.the.separator"

@@ -1,0 +1,8 @@
+"variable.name": "name"
+
+test:
+  "variable.name": "variable.name"
+  'other.variable.name': 'other.variable.name'
+
+test."variable.name": 'test."variable.name"'
+test.'other.variable.name': "test.'other.variable.name'"

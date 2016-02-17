@@ -18,6 +18,10 @@ var options = {
     files: argv.f || argv.files
 };
 
+if (argv.seperator) {
+    console.log('The separator has been removed from caml, check the readme for more details');
+}
+
 // Check the CLI parameters
 if (options.files && options.files.length > 0) {
     var json = camel.camlize(options);

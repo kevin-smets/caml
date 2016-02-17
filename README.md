@@ -24,7 +24,32 @@ This behaviour is not optional (at least not yet), meaning the output of CAML wi
 
 ### Full path declarations to a property
 
-In CAML, it's possible to define properties like `a.b.c: 1'. These will all be merged into a single Object literal.
+In CAML, it's possible to define properties with full paths like `a.b.c: 1'. These will all be merged into a single Object literal. If you need variable names with dots in them, surround them by "" or '', e.g.
+
+```
+a:
+  b:
+    d: 'indented'
+a.b.d: "path to a.b.d"
+a."b.d": "path to a['b.d']"
+```
+
+Result:
+
+```
+{
+  "a": {
+    "b": {
+      "d": "path to a.b.d"
+    },
+    "b.d": {
+      "path to a['b.d']"
+    }
+  }
+}
+```
+
+**Gotcha:** CAML substitutes dots in variable names by `_DOT_`, so this cannot be used anywhere (not in keys or values).
 
 ### Array handling
 
@@ -40,7 +65,6 @@ var caml = require('caml');
 var options = {
     dir: 'test/fixtures', 
     files: ['a', 'b', 'c']
-    separator: "_"
 }
 
 caml.camlize(options);
@@ -51,18 +75,11 @@ The return will be an Object literal.
 The following parameters can be set:
 
 - options.**dir**: the directory where CAML will look for files, default is the current working dir.
-- options.**files**: the files to merge, order matters. Properties declared in `c.yml` will overrule those from `b.yml` and `a.yml`  
-- options.**separator**: by default, full paths to properties will be separated by `.`. If your variable names include a dot in the name, make sure to define another separator.
+- options.**files**: the files to merge, order matters. Properties declared in `c.yml` will overrule those from `b.yml` and `a.yml`
 
-If you define another separator, `a.b.c: "prop"` notation will no longer be valid. The dots will have to be replaced by the given separator. E.g. if the separator is `_` you'll have to define a full path like `a_b_c: "prop"` or
+### Example 
 
-```
-a:
-  b:
-    c: "prop"
-```
-
-### Example
+A more elaborate example can be found in FLOW.md.
 
 a.yml
 
@@ -82,23 +99,25 @@ b:
   c: "fromB"
   d: "fromB"
 a.b.d: "fromB"
+a."b.d": "alsoFromB"
 ```
 
 Will result in the following:
 
 ```
 { 
-  a: { 
-    b: { 
-      c: 'fromA',
-      d: 'fromB'
-      e: "fromA"
-    } 
+  "a": { 
+    "b": { 
+      "c": "fromA",
+      "d": "fromB"
+      "e": "fromA"
+    }
+    "b.d": "alsoFromB"
   },
-  b: { 
-    c: 'fromB', 
-    d: 'fromB' 
-    e: "fromA"
+  "b": { 
+    "c': "fromB",
+    'd': "fromB" 
+    'e': "fromA"
   } 
 }
 ```

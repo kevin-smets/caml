@@ -12,6 +12,10 @@ var listsJson = fs.readFileSync('test/fixtures/lists.json', 'utf-8');
 var merge = fs.readFileSync('test/fixtures/merge.yml', 'utf-8');
 var noEOL = fs.readFileSync('test/fixtures/noEOL.yml', 'utf-8');
 
+function read(fileName) {
+  return fs.readFileSync('test/fixtures/' + fileName + '.yml', 'utf8');
+}
+
 describe('Caml', function () {
   describe('#replaceAliases()', function () {
     it('should return an array of prepocessed yaml lines', function () {
@@ -27,6 +31,21 @@ describe('Caml', function () {
     it('should be able to handle concatenated files (as string)', function () {
       var yamlLines = caml.replaceAliases(a + b);
       assert.equal(49, yamlLines.length);
+    });
+  });
+
+  describe('#sanitize()', function () {
+    var sanitize = read('sanitize');
+
+    it('should return an array of prepocessed yaml lines', function () {
+      var yaml = caml.sanitize(sanitize);
+      assert.equal(yaml.split('\n').length, 8);
+
+      var obj = caml.parse(yaml.split('\n'));
+
+      assert.equal("name", obj['variable.name']);
+      assert.equal('test."variable.name"', obj.test['variable.name']);
+      assert.equal("test.'other.variable.name'", obj.test['other.variable.name'])
     });
   });
 
