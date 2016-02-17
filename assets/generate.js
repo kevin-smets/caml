@@ -27,7 +27,7 @@ function generate(name, title){
   var yaml = "";
 
   fs.readdirSync(path.join(__dirname, 'examples', name)).forEach(function(file){
-    add('`' + file + '`');
+    add('`' + name + '/' + file + '`');
 
     var fileYaml = fs.readFileSync(path.join(__dirname, 'examples', name, file), 'utf8');
     yaml += fileYaml + '\n';
