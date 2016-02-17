@@ -10,12 +10,15 @@ var camel = require('../lib/caml');
 
 yargs.array('f');
 yargs.array('files');
+yargs.array('o');
+yargs.array('overrides');
 
 const argv = yargs.argv;
 
 var options = {
     dir: argv.d || argv.dir,
-    files: argv.f || argv.files
+    files: argv.f || argv.files,
+    overrides: argv.o || argv.overrides
 };
 
 if (argv.seperator) {
