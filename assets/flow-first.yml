@@ -5,5 +5,5 @@ baseUnoverridable: &base
     'one',
     'two'
     ]
-baseOverridable: &base
+another."base.overridable": &base
   <<: *base

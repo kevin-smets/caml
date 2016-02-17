@@ -29,13 +29,19 @@ add('`flow-second.yml`');
 addCodeBlock(second);
 
 var yaml = first + '\n' + second;
+yaml = caml.sanitize(yaml);
+
+add('## Sanitize all keys');
+
+addCodeBlock(yaml);
+
 var anchors = camlUtil.retrieveAnchors(yaml);
 yaml = camlUtil.stripEmptyLinesAndComments(yaml);
 yaml = camlUtil.stripAnchors(yaml);
 
 add('## Strip white lines, comments and anchors');
 
-add('The block content of the anchors has been stored.');
+add('The block content of the anchors will be stored for future use.');
 
 addCodeBlock(yaml);
 

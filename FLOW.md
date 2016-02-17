@@ -12,7 +12,7 @@ baseUnoverridable: &base
     'one',
     'two'
     ]
-baseOverridable: &base
+another."base.overridable": &base
   <<: *base
 ```
 
@@ -27,9 +27,29 @@ baseOverride: &base
   baseProp: false
 ```
 
+## Sanitize all keys
+
+```
+baseUnoverridable: &base
+  baseProp: true
+  baseObj:
+    arr: [
+    'one',
+    'two'
+    ]
+another.base_DOT_overridable: &base
+  <<: *base
+baseExtend:
+  <<: *base
+
+baseOverride: &base
+  baseProp: false
+  baseProp: false
+```
+
 ## Strip white lines, comments and anchors
 
-The block content of the anchors has been stored.
+The block content of the anchors will be stored for future use.
 
 ```
 baseUnoverridable: 
@@ -39,7 +59,7 @@ baseUnoverridable:
     'one',
     'two'
     ]
-baseOverridable: 
+another.base_DOT_overridable: 
   <<: *base
 baseExtend:
   <<: *base
@@ -58,7 +78,7 @@ baseUnoverridable:
     'one',
     'two'
     ]
-baseOverridable: 
+another.base_DOT_overridable: 
   baseProp: true
   baseObj:
     arr: [
@@ -91,15 +111,15 @@ baseUnoverridable.baseObj.arr: [
     'one',
     'two'
     ]
-baseOverridable: 
-baseOverridable.baseProp: true
-baseOverridable.baseObj:
-baseOverridable.baseObj.arr: [
+another.base_DOT_overridable: 
+another.base_DOT_overridable.baseProp: true
+another.base_DOT_overridable.baseObj:
+another.base_DOT_overridable.baseObj.arr: [
     'one',
     'two'
     ]
-baseOverridable.baseProp: false
-baseOverridable.baseProp: false
+another.base_DOT_overridable.baseProp: false
+another.base_DOT_overridable.baseProp: false
 baseExtend:
 baseExtend.baseProp: true
 baseExtend.baseObj:
@@ -127,13 +147,15 @@ baseOverride.baseProp: false
       ]
     }
   },
-  "baseOverridable": {
-    "baseProp": false,
-    "baseObj": {
-      "arr": [
-        "one",
-        "two"
-      ]
+  "another": {
+    "base.overridable": {
+      "baseProp": false,
+      "baseObj": {
+        "arr": [
+          "one",
+          "two"
+        ]
+      }
     }
   },
   "baseExtend": {
