@@ -1,7 +1,9 @@
-base: &base
+baseUnoverridable: &base
   baseProp: true
   baseObj:
     arr: [
     'one',
     'two'
     ]
+baseOverridable: &base
+  <<: *base
