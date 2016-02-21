@@ -26,6 +26,7 @@
   "dependencies": {
     "deep-extend": "0.4.1",
     "dot-object": "1.4.0",
+    "escape-string-regexp": "1.0.5",
     "yaml-js": "0.1.3",
     "yargs": "4.1.0"
   },

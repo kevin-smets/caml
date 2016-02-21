@@ -1,0 +1,4 @@
+variables:
+  should: '${variable1}'
+  be:
+    replaced: ${variable2}
