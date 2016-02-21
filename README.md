@@ -57,14 +57,14 @@ Arrays are considered to be simple values, they are never merged. They will alwa
 
 ### Variables
 
-Caml has variable support. Variables used in the caml configurarion needs to be in the following form:
+Caml has variable support. Variables used in the caml configuration needs to be in the following form:
 
 ```
 a:
   b: "${myVariable}"
 ```
 
-To replace the variable by actual content, pass a `variable` object to the caml options:
+To replace the variable by actual content, pass a `variables` object to the caml options:
 
 ```
 var options = {
@@ -95,6 +95,7 @@ The following parameters can be set:
 
 - options.**dir**: the directory where CAML will look for files, default is the current working dir.
 - options.**files**: the files to merge, order matters. Properties declared in `c.yml` will overrule those from `b.yml` and `a.yml`
+- options.**variables**: variables to be replaced by their replacements.
 
 ### Examples 
 
