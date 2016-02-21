@@ -213,4 +213,32 @@ describe('Caml', function () {
       assert.equal(json.extend.iAm, "original")
     });
   });
+  describe('Variables', function () {
+    it('should be properly replaced', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "variables1", "variables2"
+        ],
+        variables: {
+          'variable1': 'always',
+          'variable2': 10
+        }
+      });
+      assert.equal(json.variables.should, 'always');
+      assert.equal(json.variables.be.replaced, 10);
+      assert.equal(json.times.and, 'always');
+    });
+    it('should be left untouched', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "variables1", "variables2"
+        ]
+      });
+      assert.equal(json.variables.should, '${variable1}');
+      assert.equal(json.variables.be.replaced, '${variable2}');
+      assert.equal(json.times.and, '${variable1}');
+    });
+  });
 });

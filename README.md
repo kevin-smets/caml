@@ -55,6 +55,25 @@ Result:
 
 Arrays are considered to be simple values, they are never merged. They will always simply be overwritten if another value or another array has been declared.
 
+### Variables
+
+Caml has variable support. Variables used in the caml configuration needs to be in the following form:
+
+```
+a:
+  b: "${myVariable}"
+```
+
+To replace the variable by actual content, pass a `variables` object to the caml options:
+
+```
+var options = {
+    variables: {
+        'myVariable': 'MyReplacement'
+    }
+}
+```
+
 ## Usage
 
 The following will cascade `a.yml`, `b.yml` and `c.yml` from the directory `test/fixtures`.
@@ -76,6 +95,7 @@ The following parameters can be set:
 
 - options.**dir**: the directory where CAML will look for files, default is the current working dir.
 - options.**files**: the files to merge, order matters. Properties declared in `c.yml` will overrule those from `b.yml` and `a.yml`
+- options.**variables**: variables to be replaced by their replacements.
 
 ### Examples 
 
