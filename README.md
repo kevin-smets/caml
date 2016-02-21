@@ -55,6 +55,25 @@ Result:
 
 Arrays are considered to be simple values, they are never merged. They will always simply be overwritten if another value or another array has been declared.
 
+### Variables
+
+Caml has variable support. Variables used in the caml configurarion needs to be in the following form:
+
+```
+a:
+  b: "${myVariable}"
+```
+
+To replace the variable by actual content, pass a `variable` object to the caml options:
+
+```
+var options = {
+    variables: {
+        'myVariable': 'MyReplacement'
+    }
+}
+```
+
 ## Usage
 
 The following will cascade `a.yml`, `b.yml` and `c.yml` from the directory `test/fixtures`.
