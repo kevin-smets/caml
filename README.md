@@ -61,22 +61,32 @@ Arrays are considered to be simple values, they are never merged. They will alwa
 
 ### Variables
 
-Caml has variable support. Variables used in the caml configuration needs to be in the following form:
+Caml has interpolation / variables support. Variables used in the caml configuration needs to be in the following form:
 
 ```
 a:
-  b: "${myVariable}"
+  b: "I am a ${var.i.able}"
 ```
 
-To replace the variable by actual content, pass a `variables` object to the caml options:
+This will be replaced by the value of this path, e.g the following yaml
 
 ```
-var options = {
-    variables: {
-        'myVariable': 'MyReplacement'
-    }
-}
+var:
+  i:
+    able: 'very able one'
 ```
+
+Will transform the yaml as such:
+
+```
+a:
+  b: "I am a very able one"
+var:
+  i:
+    able: 'very able one'
+```
+
+This means overrides will also work, so `--overrides "var.i.able: very able one"` will have the same effect as described above. 
 
 ## Usage
 

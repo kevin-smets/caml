@@ -1,33 +1,26 @@
 #!/usr/bin/env node
 'use strict';
 
-var assert = require('assert');
 var util = require('util');
-
 var yargs = require('yargs');
 
 var camel = require('../lib/caml');
 
-yargs.array('f');
-yargs.array('files');
-yargs.array('o');
-yargs.array('overrides');
+const argv = yargs
+    .string('dir')
+    .alias('d', 'dir')
 
-const argv = yargs.argv;
+    .array('files')
+    .alias('f', 'files')
 
-var options = {
-    dir: argv.d || argv.dir,
-    files: argv.f || argv.files,
-    overrides: argv.o || argv.overrides
-};
+    .array('overrides')
+    .alias('o', 'overrides')
 
-if (argv.seperator) {
-    console.log('The separator has been removed from caml, check the readme for more details');
-}
+    .argv;
 
 // Check the CLI parameters
-if (options.files && options.files.length > 0) {
-    var json = camel.camlize(options);
+if (argv.files && argv.files.length > 0) {
+    var json = camel.camlize(argv);
     console.log(util.inspect(json, {depth: null, colors: true}));
 } else {
     console.error("Flag '-i' or '--input' is mandatory. e.g. --input a b c, cascades a.yml, b.yml and c.yml.");
