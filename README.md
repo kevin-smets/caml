@@ -2,7 +2,7 @@
 
 **NOTICE**
 
-Caml is undergoing a complete overhaul to work properly with parsed events instead of string / regex based. This will make is a lot more stable.
+Caml is undergoing a complete overhaul to work properly with parsed events instead of being string / regex based. This will make it a lot more stable.
 
 [![Build Status](https://travis-ci.org/kevin-smets/caml.svg?branch=master)](https://travis-ci.org/kevin-smets/caml) [![Dependency Status](https://david-dm.org/kevin-smets/caml.svg)](https://david-dm.org/kevin-smets/caml) [![devDependency Status](https://david-dm.org/kevin-smets/caml/dev-status.svg)](https://david-dm.org/kevin-smets/caml#info=devDependencies)
 
