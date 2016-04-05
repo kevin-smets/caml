@@ -214,6 +214,16 @@ describe('Caml', function () {
     });
   });
   describe('Variables', function () {
+    it('should be handled properly when they\'re on the same indentation', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "multiDots"
+        ]
+      });
+      assert.equal(json.test.for.indented.dots, 'yes');
+      assert.equal(json.test.and.another.one, 'aw.yes');
+    });
     it('should be properly replaced', function () {
       var json = caml.camlize({
         dir: "test/fixtures",
