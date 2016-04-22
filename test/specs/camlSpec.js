@@ -38,14 +38,41 @@ describe('Caml', function () {
     var sanitize = readFixture('sanitize');
 
     it('should return an array of prepocessed yaml lines', function () {
-      var yaml = caml.sanitize(sanitize);
-      assert.equal(yaml.split('\n').length, 8);
-
-      var obj = caml.parse(yaml.split('\n'));
+      var obj = caml.camlize({
+        dir: 'test/fixtures',
+        files: [
+          'sanitize'
+        ]
+      });
 
       assert.equal("name", obj['variable.name']);
       assert.equal('test."variable.name"', obj.test['variable.name']);
       assert.equal("test.'other.variable.name'", obj.test['other.variable.name'])
+    });
+
+    it('should fail for uneven quoting in keys', function () {
+      var fixture = readFixture('dot-with-unended-quote');
+      assert.throws(function () {
+        caml.sanitize(fixture);
+      }, /Key contains incomplete quoted section/);
+    });
+
+    it('should fail when nesting quotes in keys', function () {
+      var fixture = readFixture('dot-with-nested-quotes');
+      assert.throws(function () {
+        caml.sanitize(fixture);
+      }, /Key cannot contain nested quotes/);
+    });
+
+    it('should handle partly quoted keys correctly', function () {
+      var json = caml.camlize({
+        dir: 'test/fixtures',
+        files: [
+          'dot-with-partly-quoted-key'
+        ]
+      });
+
+      assert.equal(json.foo['bar.baz'].qux, 'Lorem ipsum');
     });
   });
 
