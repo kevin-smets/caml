@@ -3,7 +3,7 @@ var fs = require('fs');
 var caml = require('../../lib/caml');
 
 function readFixture(name, extension) {
-  return fs.readFileSync(`test/fixtures/${name}.${extension || 'yml'}`, 'utf-8');
+  return fs.readFileSync('test/fixtures/' + name + '.' + (extension || 'yml'), 'utf-8');
 }
 
 var a = readFixture('a');
