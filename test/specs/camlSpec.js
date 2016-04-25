@@ -2,19 +2,19 @@ var assert = require('assert');
 var fs = require('fs');
 var caml = require('../../lib/caml');
 
-var a = fs.readFileSync('test/fixtures/a.yml', 'utf-8');
-var b = fs.readFileSync('test/fixtures/b.yml', 'utf-8');
-var c = fs.readFileSync('test/fixtures/c.yml', 'utf-8');
-var deep = fs.readFileSync('test/fixtures/deep.yml', 'utf-8');
-var empty = fs.readFileSync('test/fixtures/empty.yml', 'utf-8');
-var lists = fs.readFileSync('test/fixtures/lists.yml', 'utf-8');
-var listsJson = fs.readFileSync('test/fixtures/lists.json', 'utf-8');
-var merge = fs.readFileSync('test/fixtures/merge.yml', 'utf-8');
-var noEOL = fs.readFileSync('test/fixtures/noEOL.yml', 'utf-8');
-
-function read(fileName) {
-  return fs.readFileSync('test/fixtures/' + fileName + '.yml', 'utf8');
+function readFixture(name, extension) {
+  return fs.readFileSync('test/fixtures/' + name + '.' + (extension || 'yml'), 'utf-8');
 }
+
+var a = readFixture('a');
+var b = readFixture('b');
+var c = readFixture('c');
+var deep = readFixture('deep');
+var empty = readFixture('empty');
+var lists = readFixture('lists');
+var listsJson = readFixture('lists', 'json');
+var merge = readFixture('merge');
+var noEOL = readFixture('noEOL');
 
 describe('Caml', function () {
   describe('#replaceAliases()', function () {
@@ -35,17 +35,44 @@ describe('Caml', function () {
   });
 
   describe('#sanitize()', function () {
-    var sanitize = read('sanitize');
+    var sanitize = readFixture('sanitize');
 
     it('should return an array of prepocessed yaml lines', function () {
-      var yaml = caml.sanitize(sanitize);
-      assert.equal(yaml.split('\n').length, 8);
-
-      var obj = caml.parse(yaml.split('\n'));
+      var obj = caml.camlize({
+        dir: 'test/fixtures',
+        files: [
+          'sanitize'
+        ]
+      });
 
       assert.equal("name", obj['variable.name']);
       assert.equal('test."variable.name"', obj.test['variable.name']);
       assert.equal("test.'other.variable.name'", obj.test['other.variable.name'])
+    });
+
+    it('should fail for uneven quoting in keys', function () {
+      var fixture = readFixture('dot-with-unended-quote');
+      assert.throws(function () {
+        caml.sanitize(fixture);
+      }, /Key contains incomplete quoted section/);
+    });
+
+    it('should fail when nesting quotes in keys', function () {
+      var fixture = readFixture('dot-with-nested-quotes');
+      assert.throws(function () {
+        caml.sanitize(fixture);
+      }, /Key cannot contain nested quotes/);
+    });
+
+    it('should handle partly quoted keys correctly', function () {
+      var json = caml.camlize({
+        dir: 'test/fixtures',
+        files: [
+          'dot-with-partly-quoted-key'
+        ]
+      });
+
+      assert.equal(json.foo['bar.baz'].qux, 'Lorem ipsum');
     });
   });
 
