@@ -27,12 +27,12 @@
     "deep-extend": "0.4.1",
     "dot-object": "1.4.1",
     "escape-string-regexp": "1.0.5",
-    "lodash": "4.8.1",
+    "lodash": "4.11.1",
     "yaml-js": "0.1.3",
-    "yargs": "4.3.2"
+    "yargs": "4.6.0"
   },
   "devDependencies": {
-    "istanbul": "0.4.2",
+    "istanbul": "0.4.3",
     "mocha": "2.4.5"
   }
 }
