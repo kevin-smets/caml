@@ -16,24 +16,24 @@ function read(fileName) {
 describe('camlUtil', function () {
   describe('#stripEmptyLinesAndComments()', function () {
     it('should return "" for empty lines', function () {
-      var yamlLines = camlUtil.stripEmptyLinesAndComments(empty);
+      var yamlLines = camlUtil.stripEmptyLinesAndComments(empty.split('\n'));
       assert.equal(yamlLines.length, 0);
     });
 
     it('should return "" for comments', function () {
-      var yamlLines = camlUtil.stripEmptyLinesAndComments(comments);
+      var yamlLines = camlUtil.stripEmptyLinesAndComments(comments.split('\n'));
       assert.equal(yamlLines.length, 0);
     });
 
     it('should return all lines when there are no empty lines or comments', function () {
-      var yamlLines = camlUtil.stripEmptyLinesAndComments(a);
-      assert.equal(yamlLines.split('\n').length, 17);
+      var yamlLines = camlUtil.stripEmptyLinesAndComments(a.split('\n'));
+      assert.equal(yamlLines.length, 17);
     });
   });
 
   describe('#retrieveAnchors()', function () {
     it('should find the anchor c_from_a in a with the proper block content', function () {
-      var anchors = camlUtil.retrieveAnchors(a);
+      var anchors = camlUtil.retrieveAnchors(a.split('\n'));
       Object.keys(anchors).forEach(function (anchor) {
         assert.equal(anchor, 'c_from_a');
         assert.equal(anchors[anchor].indent, 4);
@@ -45,7 +45,7 @@ describe('camlUtil', function () {
     });
 
     it('should handle duplicate anchor declarations', function () {
-      var anchors = camlUtil.retrieveAnchors(read('dupe'));
+      var anchors = camlUtil.retrieveAnchors(read('dupe').split('\n'));
       assert.equal(Object.keys(anchors).length, 1);
 
       assert.equal(anchors.base.block.length, 4);
@@ -58,9 +58,9 @@ describe('camlUtil', function () {
 
   describe('#stripAnchors()', function () {
     it('should properly strip anchors', function () {
-      var dupeClean = camlUtil.stripAnchors(read('dupe'));
+      var dupeClean = camlUtil.stripAnchors(read('dupe').split('\n'));
 
-      assert.equal(dupeClean.match(/: &/), null);
+      assert.equal(dupeClean.join('\n').match(/: &/), null);
     });
   });
 
@@ -68,9 +68,9 @@ describe('camlUtil', function () {
     var anchors, result, resultLines;
 
     beforeEach(function () {
-      anchors = camlUtil.retrieveAnchors(a + b + c);
-      result = camlUtil.replaceAliases(a + b + c, anchors);
-      resultLines = result.split('\n');
+      anchors = camlUtil.retrieveAnchors((a + b + c).split('\n'));
+      result = camlUtil.replaceAliases((a + b + c).split('\n'), anchors);
+      resultLines = result;
     });
 
     it('should set the block with correct indentation (less indentation)', function () {

@@ -10,6 +10,7 @@ var a = readFixture('a');
 var b = readFixture('b');
 var c = readFixture('c');
 var deep = readFixture('deep');
+var huge = readFixture('huge');
 var empty = readFixture('empty');
 var lists = readFixture('lists');
 var listsJson = readFixture('lists', 'json');
@@ -19,17 +20,17 @@ var noEOL = readFixture('noEOL');
 describe('Caml', function () {
   describe('#replaceAliases()', function () {
     it('should return an array of prepocessed yaml lines', function () {
-      var yamlLines = caml.replaceAliases(a);
+      var yamlLines = caml.replaceAliases(a.split(/\r?\n/));
       assert.equal(17, yamlLines.length);
     });
 
     it('should replace aliases by the block content of an anchor', function () {
-      var yamlLines = caml.replaceAliases(a);
+      var yamlLines = caml.replaceAliases(a.split(/\r?\n/));
       assert.equal(17, yamlLines.length);
     });
 
     it('should be able to handle concatenated files (as string)', function () {
-      var yamlLines = caml.replaceAliases(a + b);
+      var yamlLines = caml.replaceAliases((a + b).split(/\r?\n/));
       assert.equal(49, yamlLines.length);
     });
   });
@@ -51,14 +52,14 @@ describe('Caml', function () {
     });
 
     it('should fail for uneven quoting in keys', function () {
-      var fixture = readFixture('dot-with-unended-quote');
+      var fixture = readFixture('dot-with-unended-quote').split(/\r?\n/);
       assert.throws(function () {
         caml.sanitize(fixture);
       }, /Key contains incomplete quoted section/);
     });
 
     it('should fail when nesting quotes in keys', function () {
-      var fixture = readFixture('dot-with-nested-quotes');
+      var fixture = readFixture('dot-with-nested-quotes').split(/\r?\n/);
       assert.throws(function () {
         caml.sanitize(fixture);
       }, /Key cannot contain nested quotes/);
@@ -78,7 +79,7 @@ describe('Caml', function () {
 
   describe('#parse()', function () {
     it('should be able to cascade and parse multiple yaml files', function () {
-      var yamlLines = caml.replaceAliases(a + b);
+      var yamlLines = caml.replaceAliases((a + b).split(/\r?\n/));
       var fullYamlLines = caml.blowUpHierarchy(yamlLines);
       var json = caml.parse(fullYamlLines);
 
@@ -91,7 +92,7 @@ describe('Caml', function () {
     });
 
     it('should have no aliases in the output', function () {
-      var yamlLines = caml.replaceAliases(a + b + c);
+      var yamlLines = caml.replaceAliases((a + b + c).split(/\r?\n/));
 
       yamlLines.forEach(function (line) {
         assert(line.indexOf("<<: *") === -1);
@@ -99,7 +100,7 @@ describe('Caml', function () {
     });
 
     it('should be able to cascade and parse multiple yaml files', function () {
-      var yamlLines = caml.replaceAliases(a + b + c);
+      var yamlLines = caml.replaceAliases((a + b + c).split(/\r?\n/));
 
       var fullYamlLines = caml.blowUpHierarchy(yamlLines);
       var json = caml.parse(fullYamlLines);
@@ -238,6 +239,15 @@ describe('Caml', function () {
       assert.equal(json.extend.from, "baseOverride");
       assert.equal(json.extend.success.fail, false);
       assert.equal(json.extend.iAm, "original")
+    });
+
+    it('should handle large files quickly', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "a", "b", "c", "deep", "huge"
+        ]
+      });
     });
   });
   describe('Variables', function () {

@@ -1,9 +1,5 @@
 # CAML
 
-**NOTICE**
-
-Caml is undergoing a complete overhaul to work properly with parsed events instead of being string / regex based. This will make it a lot more stable.
-
 [![Build Status](https://travis-ci.org/kevin-smets/caml.svg?branch=master)](https://travis-ci.org/kevin-smets/caml) [![Dependency Status](https://david-dm.org/kevin-smets/caml.svg)](https://david-dm.org/kevin-smets/caml) [![devDependency Status](https://david-dm.org/kevin-smets/caml/dev-status.svg)](https://david-dm.org/kevin-smets/caml#info=devDependencies)
 
 Cascading YAML config, a YAML preprocessor.
@@ -61,7 +57,7 @@ Arrays are considered to be simple values, they are never merged. They will alwa
 
 ### Variables
 
-Caml has interpolation / variables support. Variables used in the caml configuration needs to be in the following form:
+CAML has interpolation / variables support. Variables used in the CAML configuration needs to be in the following form:
 
 ```
 a:
@@ -124,3 +120,14 @@ There's a CLI, but it's mainly there for running a quick test.
 ```
 npm test
 ```
+
+## Changelog
+
+- v0.9.0
+    - Removed a lot of unnecessary splitting and joining to improve performance drastically (sliced parsing times in half).
+    - Updated the readme
+    - Improved cross platform newline splitting by using `/\r?\n/` instead of `"\n"`
+
+**NOTICE**
+
+CAML is string / regex based. While this is not rock solid, it serves the purposes I need it for. I tried to use a proper parser but the documentation on it is [very sparse](https://github.com/connec/yaml-js/issues/12), blocking this for now.
