@@ -118,8 +118,13 @@ There's a CLI, but it's mainly there for running a quick test.
 ## Testing CAML
 
 ```
+npm i
 npm test
 ```
+
+## Node version compatibility
+
+Check `.travis.yml` for the node versions CAML is tested against
 
 ## Changelog
 
