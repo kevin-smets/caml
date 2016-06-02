@@ -24,15 +24,15 @@
   },
   "homepage": "https://github.com/kevin-smets/caml#readme",
   "dependencies": {
-    "deep-extend": "0.4.1",
-    "dot-object": "1.4.1",
-    "escape-string-regexp": "1.0.5",
-    "lodash": "4.12.0",
-    "yaml-js": "0.1.3",
-    "yargs": "4.7.0"
+    "deep-extend": "^0.4.1",
+    "dot-object": "^1.4.1",
+    "escape-string-regexp": "^1.0.5",
+    "lodash": "^4.13.1",
+    "yaml-js": "^0.1.3",
+    "yargs": "^4.7.1"
   },
   "devDependencies": {
-    "istanbul": "0.4.3",
-    "mocha": "2.4.5"
+    "istanbul": "^0.4.3",
+    "mocha": "^2.5.3"
   }
 }
