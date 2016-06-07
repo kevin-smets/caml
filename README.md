@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/kevin-smets/caml.svg?branch=master)](https://travis-ci.org/kevin-smets/caml) [![Dependency Status](https://david-dm.org/kevin-smets/caml.svg)](https://david-dm.org/kevin-smets/caml) [![devDependency Status](https://david-dm.org/kevin-smets/caml/dev-status.svg)](https://david-dm.org/kevin-smets/caml#info=devDependencies)
 
-Cascading YAML config, a YAML preprocessor.
+CAML offers you a Cascading YAML config. It's a YAML preprocessor which converts YAML to Json.
 
 You still write valid YAML, but the output is quite a bit different.
 
@@ -10,7 +10,7 @@ You still write valid YAML, but the output is quite a bit different.
 
 ### Multiple files
 
-CAML is built out of the need for YAML to handle multiple files, with anchors and aliases defined in other files.
+CAML is built out of the need for YAML to handle multiple files, with anchors and aliases defined in separate files.
 
 So if `root.yml` defines the anchor `&from_root`, it can be used in files added after root.
 
@@ -55,16 +55,16 @@ Result:
 
 Arrays are considered to be simple values, they are never merged. They will always simply be overwritten if another value or another array has been declared.
 
-### Variables
+### Variable substitution
 
-CAML has interpolation / variables support. Variables used in the CAML configuration needs to be in the following form:
+CAML can substitute variables. Variables used in the CAML configuration need to be in the following form:
 
 ```
 a:
   b: "I am a ${var.i.able}"
 ```
 
-This will be replaced by the value of this path, e.g the following yaml
+This will be replaced by the value of this path, e.g the following
 
 ```
 var:
@@ -72,7 +72,7 @@ var:
     able: 'very able one'
 ```
 
-Will transform the yaml as such:
+Will result in the following:
 
 ```
 a:
@@ -96,10 +96,10 @@ var options = {
     files: ['a', 'b', 'c']
 }
 
-caml.camlize(options);
+var result = caml.camlize(options);
 ```
 
-The return will be an Object literal.
+Result will be the composed Object literal.
 
 The following parameters can be set:
 
@@ -109,11 +109,11 @@ The following parameters can be set:
 
 ### Examples 
 
-More elaborate examples can be found in `/examples`.
+The entire flow of CAML can be found in `/examples/GENERAL.md`.
 
 ## CLI
 
-There's a CLI, but it's mainly there for running a quick test.
+There's a CLI, but it's mainly there for running a quick test. Run `caml -h` to check the usage.
 
 ## Testing CAML
 
@@ -127,6 +127,11 @@ npm test
 Check `.travis.yml` for the node versions CAML is tested against
 
 ## Changelog
+
+- v0.9.3
+    - Updated npm packages
+    - Handle multiple substitutions in a single line
+    - Simplified `.travis.yml`
 
 - v0.9.0
     - Removed a lot of unnecessary splitting and joining to improve performance drastically (sliced parsing times in half).
