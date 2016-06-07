@@ -1,0 +1,5 @@
+one: 1
+two: 2
+variables:
+  multi:
+    - 'i should be ${one} and ${two}'

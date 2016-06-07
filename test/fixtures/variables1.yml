@@ -1,7 +1,9 @@
 variables:
   should: 'i should be the ${var.i.able.one}'
   shouldToo: 'i too should be the ${var.i.able.one}'
+  var: '${one}'
   be:
     replaced: ${var.i.able.two}
 var.i.able.one: unable.one
 var.i.able.one: able one
+one: var

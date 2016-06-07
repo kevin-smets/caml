@@ -272,6 +272,7 @@ describe('Caml', function () {
       assert.equal(json.variables.should, 'i should be the able one');
       assert.equal(json.variables.be.replaced, 'able too');
       assert.equal(json.times.and, 'able one');
+      assert.equal(json.variables.var, 'var');
     });
     it('should be left untouched', function () {
       var json = caml.camlize({
@@ -281,6 +282,15 @@ describe('Caml', function () {
         ]
       });
       assert.equal(json.variables.be.replaced, '${var.i.able.two}');
+    });
+    it('should be able to handle multiple entries', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "variables3"
+        ]
+      });
+      assert.equal(json.variables.multi[0], 'i should be 1 and 2');
     });
   });
 });
