@@ -1,5 +1,6 @@
 baseUnoverridable: &base
-  baseProp: true
+  baseProp: 1
+  boolProp: false
   baseObj:
     arr: [
     'one',

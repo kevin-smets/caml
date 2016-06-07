@@ -2,5 +2,6 @@ baseExtend:
   <<: *base
 
 baseOverride: &base
-  baseProp: false
-  baseProp: false
+  baseProp: 1
+  baseProp: 3
+  baseBoolProp: true

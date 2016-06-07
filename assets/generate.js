@@ -1,11 +1,13 @@
 #!/usr/bin/env node
+"use strict";
+
 var fs = require('fs');
 var path = require('path');
 
 var caml = require('../lib/caml');
 var camlUtil = require('../lib/camlUtil');
 
-generate('general', 'General flow of CamlYaml');
+generate('general', 'General flow of CAML');
 
 function generate(name, title){
   var out = "";
@@ -35,11 +37,15 @@ function generate(name, title){
     addCodeBlock(fileYaml);
   });
 
-  yaml = caml.sanitize(yaml);
+  // var fileYaml = fs.readFileSync(path.join(__dirname, '../test/fixtures/multiDots.yml'), 'utf8');
+  // yaml += fileYaml + '\n';
+  // addCodeBlock(fileYaml);
+
+  yaml = caml.sanitize(yaml.split(/\r?\n/));
 
   add('## Sanitize all keys');
 
-  addCodeBlock(yaml);
+  addCodeBlock(yaml.join('\n'));
 
   var anchors = camlUtil.retrieveAnchors(yaml);
   yaml = camlUtil.stripEmptyLinesAndComments(yaml);
@@ -49,23 +55,23 @@ function generate(name, title){
 
   add('The block content of the anchors will be stored for future use.');
 
-  addCodeBlock(yaml);
+  addCodeBlock(yaml.join('\n'));
 
   add('## Replace aliases by the anchor block');
 
   var yamlReplaced = camlUtil.replaceAliases(yaml, anchors);
 
-  addCodeBlock(yamlReplaced);
+  addCodeBlock(yamlReplaced.join('\n'));
 
   add('## Blow up the hierarchy');
 
-  var yamlBlownUp = caml.blowUpHierarchy(yamlReplaced.split('\n')).join('\n');
+  var yamlBlownUp = caml.blowUpHierarchy(yamlReplaced).join('\n');
 
   addCodeBlock(yamlBlownUp);
 
   add('## Parse this to json');
 
-  var json = caml.parse(yamlBlownUp.split('\n'));
+  var json = caml.parse(yamlBlownUp.split(/\r?\n/));
 
   addCodeBlock(JSON.stringify(json, null, 2));
 
