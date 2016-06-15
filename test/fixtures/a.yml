@@ -12,6 +12,7 @@ a:
     f: [ 'shouldBeLength3', 'shouldBe2ndArray', 'shouldBeFromA' ]
   z:
     zz: "cannotBeFromA"
+
 g:
   h: 'and now for something completely different, but shouldBeFromA still'
   i: true

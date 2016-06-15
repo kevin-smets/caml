@@ -69,8 +69,8 @@ describe('camlUtil', function () {
 
     beforeEach(function () {
       anchors = camlUtil.retrieveAnchors((a + b + c).split('\n'));
-      result = camlUtil.replaceAliases((a + b + c).split('\n'), anchors);
-      resultLines = result;
+      result = camlUtil.stripEmptyLinesAndComments((a + b + c).split('\n'));
+      resultLines = camlUtil.replaceAliases(result, anchors);
     });
 
     it('should set the block with correct indentation (less indentation)', function () {
