@@ -53,11 +53,25 @@ Result:
 
 ### Array handling
 
-Arrays are considered to be simple values, they are never merged. They will always simply be overwritten if another value or another array has been declared.
+Arrays can be concatenated by using the following syntax:
+
+```
+arr: &arr
+  - "one"
+  - "two"
+  
+yarr:
+  <<: *arr
+  - "three"
+```
+
+yarr will be [ "one", "two", "three" ]
+
+If you do not use this pattern, arrays will be handled just like simple values. The last one will overwrite all previous arrays.
 
 ### Variable substitution
 
-CAML can substitute variables. Variables used in the CAML configuration need to be in the following form:
+CAML can substitute variables inline. Variables used in the CAML configuration need to be in the following form:
 
 ```
 a:
@@ -82,7 +96,20 @@ var:
     able: 'very able one'
 ```
 
-This means overrides will also work, so `--overrides "var.i.able: very able one"` will have the same effect as described above. 
+This means overrides will also work, so `--overrides "var.i.able: very able one"` will have the same effect as described above.
+
+This can go further, for instance, running the following:
+ 
+```
+--overrides "ip: `ipconfig getifaddr en0`"`
+```
+
+Will allow you to use this dynamically in config:
+
+```
+server:
+  ip: ${ip}
+```
 
 ## Usage
 
@@ -127,6 +154,9 @@ npm test
 Check `.travis.yml` for the node versions CAML is tested against
 
 ## Changelog
+
+- v0.9.4
+    - Remove blank lines properly
 
 - v0.9.3
     - Updated npm packages
