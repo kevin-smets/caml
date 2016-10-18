@@ -8,6 +8,7 @@ var c = fs.readFileSync('test/fixtures/c.yml', 'utf-8');
 var circular = fs.readFileSync('test/fixtures/circular.yml', 'utf-8');
 var comments = fs.readFileSync('test/fixtures/comments.yml', 'utf-8');
 var empty = fs.readFileSync('test/fixtures/empty.yml', 'utf-8');
+var includeResult = fs.readFileSync('test/fixtures/includes/includeResult.yml', 'utf-8');
 
 function read(fileName) {
   return fs.readFileSync('test/fixtures/' + fileName + '.yml', 'utf-8');
@@ -53,6 +54,25 @@ describe('camlUtil', function () {
       assert.equal(anchors.base.block[1], '  from: "baseOverride"');
       assert.equal(anchors.base.block[2], '  success:');
       assert.equal(anchors.base.block[3], '    fail: false');
+    });
+  });
+
+  describe('#parseIncludes()', function () {
+    it('should include files declared in @include statements', function () {
+      var path = require('path');
+      var include = camlUtil.parseIncludes(read('includes/includer'), path.join(__dirname, '../fixtures/includes'));
+
+      assert.equal(include, includeResult);
+    });
+  });
+
+  describe('#parseIncludes()', function () {
+    it('should throw an error when including non existent files', function () {
+      var path = require('path');
+
+      assert.throws(function() {
+        camlUtil.parseIncludes(read('includes/includerFaulty'), path.join(__dirname, '../fixtures/includes'));
+      }, Error);
     });
   });
 

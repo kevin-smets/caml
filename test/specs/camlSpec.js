@@ -148,6 +148,20 @@ describe('Caml', function () {
       assert.equal(json.a.z.zz.zzz.d, "shouldBeFromA");
     });
 
+    it('should handle @include statements', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures/includes",
+        files: [
+          "includer"
+        ]
+      });
+
+      assert.equal(json.included, true, "Expected json.included to be true");
+      assert.equal(json.includedSpecific, true, "Expected json.includedSpecific to be true");
+      assert.equal(json.relativeIncluded, true, "Expected json.relativeIncluded to be true");
+      assert.equal(json.relativeIncludedSpecific, true, "Expected json.relativeIncludedSpecific to be true");
+    });
+
     it('should be able to cascade and parse multiple yaml files', function () {
       var json = caml.camlize({
         dir: "test/fixtures",
