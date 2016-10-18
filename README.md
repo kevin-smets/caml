@@ -14,7 +14,17 @@ CAML is built out of the need for YAML to handle multiple files, with anchors an
 
 So if `root.yml` defines the anchor `&from_root`, it can be used in files added after root.
 
-The cascading concept is taken from CSS, so the last defined property wins, this means the order of the files added to CAML matters, a lot. 
+The cascading concept is taken from CSS, so the last defined property wins, this means the order of the files added to CAML matters, a lot.
+
+Besides the cascading of the files in cli, you can also do this in src, e.g.:
+
+```
+#@include partials/include.yml
+
+someProperty: true
+```
+
+The content of `partials/include.yml` will be inserted 1:1 on the line of the inclusion, after that it will be parsed as usual.
 
 ### Deep merge
 
