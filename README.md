@@ -83,22 +83,26 @@ If you do not use this pattern, arrays will be handled just like simple values. 
 
 Array elements will be merged too. It is possible to extend array elements, but keep in mind same values will be overwritten:
 
-    it.is.an.array:
-      - name: "sheep" 
-        voice: "meeh"
-      - name: "cat"
-        voice: "miaw"
+```
+it.is.an.array:
+  - name: "sheep" 
+    voice: "meeh"
+  - name: "cat"
+    voice: "miaw"
 
-    it.is.an.array[0]:
-      size: "large"
+it.is.an.array[0]:
+  size: "large"
 
-    it.is.an.array[1]:
-      size: "small"
+it.is.an.array[1]:
+  size: "small"
+```
       
 Which results in the following array elements:
 
-    { name: 'sheep', voice: 'meeh', size: 'large' }
-    { name: 'cat', voice: 'miaw', size: 'small' }
+```
+{ name: 'sheep', voice: 'meeh', size: 'large' }
+{ name: 'cat', voice: 'miaw', size: 'small' }
+```
 
 ### Variable substitution
 
