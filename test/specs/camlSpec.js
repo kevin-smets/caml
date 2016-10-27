@@ -306,5 +306,15 @@ describe('Caml', function () {
       });
       assert.equal(json.variables.multi[0], 'i should be 1 and 2');
     });
+    it('should merge array elements', function () {
+      var json = caml.camlize({
+        dir: "test/fixtures",
+        files: [
+          "arrays"
+        ]
+      });
+      assert.deepEqual(json.it.is.an.array[0], {a: "valueA"});
+      assert.deepEqual(json.it.is.an.array[1], {b: {c: "replace", d: 2, e: "valueE", g: "newG"}, c: "newC" });
+    });
   });
 });
