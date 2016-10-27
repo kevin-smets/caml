@@ -1,6 +1,6 @@
 {
   "name": "caml",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "description": "Cascading YAML configuration",
   "bin": "bin/caml",
   "main": "lib/caml.js",
