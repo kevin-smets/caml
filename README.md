@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/kevin-smets/caml.svg?branch=master)](https://travis-ci.org/kevin-smets/caml) [![Dependency Status](https://david-dm.org/kevin-smets/caml.svg)](https://david-dm.org/kevin-smets/caml) [![devDependency Status](https://david-dm.org/kevin-smets/caml/dev-status.svg)](https://david-dm.org/kevin-smets/caml#info=devDependencies)
 
-CAML offers you a Cascading YAML config. It's a YAML preprocessor which converts YAML to Json.
+CAML offers you a Cascading YAML config. It's a YAML preprocessor which converts YAML to Json. This output can be written into a file or just logged to the console, or you can use it in Node as an object.
 
 You still write valid YAML, but the output is quite a bit different.
 
@@ -15,6 +15,10 @@ npm i -g caml
 ```
 
 After that, run `caml` to see the CLI options.
+
+e.g. `caml -f a b -y config.yml` will cascade `a.yml` and `b.yml` into `config.yml`
+
+Omit config.yml from the command to just log to the console.
 
 ### Node usage
 
