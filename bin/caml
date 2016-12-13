@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-§var util = require('util');
+var util = require('util');
 var yargs = require('yargs');
 
 var camel = require('../lib/caml');
