@@ -6,6 +6,33 @@ CAML offers you a Cascading YAML config. It's a YAML preprocessor which converts
 
 You still write valid YAML, but the output is quite a bit different.
 
+## Install
+
+### CLI
+
+```bash
+npm i -g caml
+```
+
+After that, run `caml` to see the CLI options.
+
+### Node usage
+
+```bash
+npm i -D caml
+```
+
+```
+const caml = require('caml');
+
+# Returns a literal object constructed from the given input (see below for example configs).
+caml.camlize({
+    files: ['a', 'b']           # Required, will expect a.yml and b.yml as input files. Relative paths are possible.
+    dir: "config/yaml"          # Optional, Caml will look into this directory for the .yml files
+    overrides: ["c.d: false"]   # Optional, Will override the parameters on the given path. More info below.
+});
+```
+
 ## Why cascading?
 
 ### Multiple files
@@ -189,6 +216,9 @@ npm test
 Check `.travis.yml` for the node versions CAML is tested against
 
 ## Changelog
+
+- v0.9.11
+    - Added --yaml and --json flags for different forms of output.
 
 - v0.9.4
     - Remove blank lines properly
