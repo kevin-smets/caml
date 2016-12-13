@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
-var util = require('util');
 var yargs = require('yargs');
 
 var camel = require('../lib/caml');
 
 const argv = yargs
-    .usage('caml --files fileOne fileTwo... [--dir directory/path] [--overrides "var.i.able: true"]')
+    .usage('caml --files fileOne fileTwo... [--dir directory/path] [--overrides "var.i.able: true"] [--yaml] [--json]')
 
     // option: directory
     .string('dir')
@@ -28,12 +27,12 @@ const argv = yargs
     // option: json
     .string('json')
     .alias('j', 'json')
-    .describe('json', 'output to a json file e.g: -j out.json')
+    .describe('json', 'output json content, or to a json file e.g: -j out.json or just -j for the output')
 
     // option: yaml
     .string('yaml')
     .alias('y', 'yaml')
-    .describe('yaml', 'output to a yaml file e.g: -y out.yml')
+    .describe('yaml', 'output yaml content, or to a yaml file e.g: -y out.yml or just -y for the output')
 
     // flag: help
     .help('h')
@@ -46,16 +45,28 @@ const argv = yargs
 // Check the CLI parameters
 if (argv.files && argv.files.length > 0) {
     var json = camel.camlize(argv);
-    console.log(util.inspect(json, {depth: null}));
 
-    if (argv.j) {
+    if (typeof argv.j !== "undefined") {
         var fs = require('fs');
-        fs.writeFileSync(argv.j, JSON.stringify(json));
+        var out = JSON.stringify(json, null, 2);
+
+        if (argv.j.length > 0) {
+            fs.writeFileSync(argv.j, out);
+        } else {
+            console.log(out);
+        }
     }
 
-    if (argv.y) {
+    if (typeof argv.y !== "undefined") {
         var fs = require('fs');
         var yamlJs = require('yamljs');
-        fs.writeFileSync(argv.y, yamlJs.stringify(json, 20, 2));
+
+        var out = yamlJs.stringify(json, 20, 2);
+
+        if (argv.y.length > 0) {
+            fs.writeFileSync(argv.y, out);
+        } else {
+            console.log(out);
+        }
     }
 }
