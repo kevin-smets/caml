@@ -27,6 +27,7 @@
     "escape-string-regexp": "1.0.5",
     "lodash": "4.17.2",
     "yaml-js": "0.1.4",
+    "yamljs": "0.2.8",
     "yargs": "6.5.0"
   },
   "devDependencies": {

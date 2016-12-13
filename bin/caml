@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-var fs = require('fs');
-var util = require('util');
+§var util = require('util');
 var yargs = require('yargs');
 
 var camel = require('../lib/caml');
@@ -31,6 +30,11 @@ const argv = yargs
     .alias('j', 'json')
     .describe('json', 'output to a json file e.g: -j out.json')
 
+    // option: yaml
+    .string('yaml')
+    .alias('y', 'yaml')
+    .describe('yaml', 'output to a yaml file e.g: -y out.yml')
+
     // flag: help
     .help('h')
 
@@ -45,7 +49,13 @@ if (argv.files && argv.files.length > 0) {
     console.log(util.inspect(json, {depth: null}));
 
     if (argv.j) {
-        console.log('Writing output to ' + argv.j);
+        var fs = require('fs');
         fs.writeFileSync(argv.j, JSON.stringify(json));
+    }
+
+    if (argv.y) {
+        var fs = require('fs');
+        var yamlJs = require('yamljs');
+        fs.writeFileSync(argv.y, yamlJs.stringify(json, 20, 2));
     }
 }
