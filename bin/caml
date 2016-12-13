@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+var fs = require('fs');
 var util = require('util');
 var yargs = require('yargs');
 
@@ -25,6 +26,11 @@ const argv = yargs
     .alias('o', 'overrides')
     .describe('overrides', 'Variables to override via cli e.g: "var.i.able": true')
 
+    // option: json
+    .string('json')
+    .alias('j', 'json')
+    .describe('json', 'output to a json file e.g: -j out.json')
+
     // flag: help
     .help('h')
 
@@ -37,4 +43,9 @@ const argv = yargs
 if (argv.files && argv.files.length > 0) {
     var json = camel.camlize(argv);
     console.log(util.inspect(json, {depth: null, colors: true}));
+
+    if (argv.j) {
+        console.log('Writing output to ' + argv.j);
+        fs.writeFileSync(argv.j, JSON.stringify(json));
+    }
 }
