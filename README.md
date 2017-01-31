@@ -225,6 +225,7 @@ Check `.travis.yml` for the node versions CAML is tested against
     - Prevent values containing # from being stripped
     - Added yarn.lock
     - Loosened up npm dependency versions
+    - Added node 7 to travis config
 
 - v0.9.11
     - Added --yaml and --json flags for different forms of output.
