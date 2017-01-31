@@ -24,11 +24,11 @@
   },
   "homepage": "https://github.com/kevin-smets/caml#readme",
   "dependencies": {
-    "escape-string-regexp": "1.0.5",
-    "lodash": "4.17.2",
-    "yaml-js": "0.1.4",
-    "yamljs": "0.2.8",
-    "yargs": "6.5.0"
+    "escape-string-regexp": "^1.0.5",
+    "lodash": "^4.17.4",
+    "yaml-js": "^0.1.4",
+    "yamljs": "^0.2.8",
+    "yargs": "^6.6.0"
   },
   "devDependencies": {
     "istanbul": "^0.4.3",
