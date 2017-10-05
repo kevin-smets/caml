@@ -221,6 +221,11 @@ Check `.travis.yml` for the node versions CAML is tested against
 
 ## Changelog
 
+- v0.9.13
+    - Added node 8 to travis config
+    - Removed node 0.12 from travis config
+    - Updated dependencies
+
 - v0.9.12
     - Prevent values containing # from being stripped
     - Added yarn.lock
